@@ -93,11 +93,11 @@ struct NewsViewModel {
             newsFeedsDB.user?.profilepicture = newsFeed.user?.profilepicture
            // newsFeedsDB.user = User()
             
-//            let user: UserDB = UserDB()
-//
-//            user.userid = Int32(newsFeed.user?.userid ?? 0)
-//            user.name = newsFeed.user?.name
-//            user.profilepicture = newsFeed.user?.profilepicture
+            let user = UserDB(context: context)
+
+            user.userid = Int32(newsFeed.user?.userid ?? 0)
+            user.name = newsFeed.user?.name
+            user.profilepicture = newsFeed.user?.profilepicture
 
             if newsFeed.user?.profilepicture  != nil{
                 ImageDownloader.downloadImage( newsFeed.user?.profilepicture ?? "http://restapi.adequateshop.com/Media//Images/userimageicon.png") {
@@ -105,38 +105,41 @@ struct NewsViewModel {
                    if let imageObject = binaryString {
                       // performing UI operation on main thread
                       DispatchQueue.main.async {
-                          newsFeedsDB.user?.profileImage = imageObject
+                          user.profileImage = imageObject
+                          //newsFeedsDB.user?.profileImage = imageObject
                       }
                    }
                 }
             }
+            
 
            
-   //         newsFeedsDB.user = user
+            newsFeedsDB.user = user
             
             //newsFeedsDB.multimedia = newsFeed.multiMedia
             
             for media in newsFeed.multiMedia! {
                 
-//                let mediaItem: MultiMediaDB = MultiMediaDB()
-//                mediaItem.id = Int32(media.id!)
-//                mediaItem.descriptions = media.description
-//                mediaItem.title = media.title
-//                mediaItem.url = media.url
-//                
+                let mediaItem = MultiMediaDB(context: context)
+                mediaItem.id = Int32(media.id!)
+                mediaItem.descriptions = media.description
+                mediaItem.title = media.title
+                mediaItem.url = media.url
+                mediaItem.name = media.name
+                mediaItem.createat = media.createat
                 
-                
-//                ImageDownloader.downloadImage( media.url ?? "http://restapi.adequateshop.com/Media//Images/userimageicon.png") {
-//                image, urlString, binaryString in
-//                   if let imageObject = binaryString {
-//                      // performing UI operation on main thread
-//                      DispatchQueue.main.async {
-//                          mediaItem.image = imageObject
-//                      }
-//
-//                   }
-//                }
-              //  newsFeedsDB.addToMultimedias(mediaItem)
+                ImageDownloader.downloadImage( media.url ?? "https://picsum.photos/300") {
+                image, urlString, binaryString in
+                   if let imageObject = binaryString {
+                      // performing UI operation on main thread
+                      DispatchQueue.main.async {
+                          
+                          mediaItem.image = imageObject
+                      }
+
+                   }
+                }
+                newsFeedsDB.addToMultimedias(mediaItem)
                 
                 
             }
@@ -179,27 +182,37 @@ struct NewsViewModel {
                  news.description = newsDb.descriptions
                  news.location = newsDb.location
                  news.createdat = newsDb.createdat
-                 news.user?.userid = Int(newsDb.user?.userid ?? 0)
-                 news.user?.profilepicture = newsDb.user?.profilepicture
-                 news.user?.data = newsDb.user?.profileImage
                  
-                 for media in newsDb.multimedias ?? []{
-                     print("Media")
+                 var user: User = User()
+                 
+                 user.userid = Int(newsDb.user?.userid ?? 0)
+                 user.profilepicture = newsDb.user?.profilepicture
+                 user.data = newsDb.user?.profileImage
+                 user.name = newsDb.user?.name
+                 
+                 news.user = user
+                 
+                let multimediaArray = newsDb.multimedias?.allObjects as! [MultiMediaDB]
                      
-                     print(media)
+                 var multimediaList: [MultiMedia] = []
+                 
+                 for media in multimediaArray {
                      
-//                     var multimedia: MultiMedia = MultiMedia()
-//                     multimedia.id = media.id
-//
-//
-//                     news.multiMedia?.append(contentsOf: <#T##Sequence#>)
+                     var multimedia: MultiMedia = MultiMedia()
+                     multimedia.id = Int(media.id)
+                     multimedia.data = media.image
+                     multimedia.url = media.url
+                     multimedia.title = media.title
+                     multimedia.name = media.name
+                     multimedia.description = media.descriptions
+                     
+                     multimediaList.append(multimedia)
+                    
                  }
                 
-                 
+                 news.multiMedia = multimediaList
                  listItem.append(news)
-                 
-                 print("Data news fetched \(String(describing: news.id))")
-                 
+                                  
                  
              }
 

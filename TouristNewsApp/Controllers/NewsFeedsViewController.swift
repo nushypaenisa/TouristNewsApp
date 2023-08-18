@@ -155,28 +155,33 @@ class NewsFeedsViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
         
-//            if !isConnected{
-//
-//                let image = UIImage(data: multimedia.data ?? Data())
+           
+                
+        if !(newsFeed.multiMedia?.count == 0) {
+            
+            if !isConnected{
+
+                
+                let image = UIImage(data: newsFeed.multiMedia?[0].data ?? Data())
 //                img.image = image
 //                cell.containerImageView.addSubview(img)
 //
-//            }else{
-        if !(newsFeed.multiMedia?.count == 0) {
-                
-            ImageDownloader.downloadImage( newsFeed.multiMedia?[0].url ?? "https://picsum.photos/300") {
-                image, urlString, binaryString in
-                   if let imageObject = image {
-                      // performing UI operation on main thread
-                      DispatchQueue.main.async {
-                         // img.image = imageObject
-                          cell.locationImage.image = imageObject //.addSubview(img)
-                      }
-                   }
-                }
-            }
+                cell.locationImage.image = image
 
-           // }
+            }else{
+                ImageDownloader.downloadImage( newsFeed.multiMedia?[0].url ?? "https://picsum.photos/300") {
+                    image, urlString, binaryString in
+                       if let imageObject = image {
+                          // performing UI operation on main thread
+                          DispatchQueue.main.async {
+                             // img.image = imageObject
+                              cell.locationImage.image = imageObject //.addSubview(img)
+                          }
+                       }
+                    }
+                }
+
+           }
         
 //        for multimedia in newsFeed.multiMedia ?? [] {
 //

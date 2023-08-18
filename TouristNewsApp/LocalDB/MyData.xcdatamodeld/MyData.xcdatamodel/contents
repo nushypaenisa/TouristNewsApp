@@ -8,7 +8,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="String"/>
-        <relationship name="newsFeed" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="NewsFeedsDB" inverseName="multimedias" inverseEntity="NewsFeedsDB"/>
+        <relationship name="newsFeed" optional="YES" toMany="YES" deletionRule="No Action" ordered="YES" destinationEntity="NewsFeedsDB" inverseName="multimedias" inverseEntity="NewsFeedsDB"/>
     </entity>
     <entity name="NewsFeedsDB" representedClassName="NewsFeedsDB" syncable="YES" codeGenerationType="class">
         <attribute name="commentCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
