@@ -21,7 +21,7 @@ class TouristCell: UITableViewCell {
     
     let nameLabel:UILabel = {
             let label = UILabel()
-            label.font = UIFont.boldSystemFont(ofSize: 16)
+            label.font = UIFont.boldSystemFont(ofSize: 12)
             //label.textColor =  .cyan
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -29,7 +29,7 @@ class TouristCell: UITableViewCell {
     
     let emailLabel:UILabel = {
             let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 11)
             ///label.textColor =  .cyan
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -37,7 +37,7 @@ class TouristCell: UITableViewCell {
     
     let locationLabel:UILabel = {
           let label = UILabel()
-          label.font = UIFont.systemFont(ofSize: 12)
+          label.font = UIFont.systemFont(ofSize: 10)
           //label.textColor =  .cyan
           //label.backgroundColor =  .gray
           label.layer.cornerRadius = 5

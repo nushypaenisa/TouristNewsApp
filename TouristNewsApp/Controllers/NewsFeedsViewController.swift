@@ -127,6 +127,7 @@ class NewsFeedsViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.locationLabel.text = newsFeed.location
         cell.userNameLabel.text = newsFeed.user?.name ?? "Name"
         cell.createdAt.text = newsFeed.createdat
+        cell.selectionStyle = .none
         
         if !isConnected{
             
