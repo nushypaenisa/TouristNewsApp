@@ -88,6 +88,9 @@ struct NewsViewModel {
             newsFeedsDB.location = newsFeed.location
             
             newsFeedsDB.commentCount = Int32(newsFeed.commentCount!)
+            newsFeedsDB.user?.userid = Int32(newsFeed.user?.userid ?? 0)
+            newsFeedsDB.user?.name = newsFeed.user?.name
+            newsFeedsDB.user?.profilepicture = newsFeed.user?.profilepicture
            // newsFeedsDB.user = User()
             
 //            let user: UserDB = UserDB()
@@ -96,17 +99,17 @@ struct NewsViewModel {
 //            user.name = newsFeed.user?.name
 //            user.profilepicture = newsFeed.user?.profilepicture
 
-//            if newsFeed.user?.profilepicture  != nil{
-//                ImageDownloader.downloadImage( newsFeed.user?.profilepicture ?? "http://restapi.adequateshop.com/Media//Images/userimageicon.png") {
-//                image, urlString, binaryString in
-//                   if let imageObject = binaryString {
-//                      // performing UI operation on main thread
-//                      DispatchQueue.main.async {
-//                          user.profileImage = imageObject
-//                      }
-//                   }
-//                }
-//            }
+            if newsFeed.user?.profilepicture  != nil{
+                ImageDownloader.downloadImage( newsFeed.user?.profilepicture ?? "http://restapi.adequateshop.com/Media//Images/userimageicon.png") {
+                image, urlString, binaryString in
+                   if let imageObject = binaryString {
+                      // performing UI operation on main thread
+                      DispatchQueue.main.async {
+                          newsFeedsDB.user?.profileImage = imageObject
+                      }
+                   }
+                }
+            }
 
            
    //         newsFeedsDB.user = user
@@ -176,7 +179,22 @@ struct NewsViewModel {
                  news.description = newsDb.descriptions
                  news.location = newsDb.location
                  news.createdat = newsDb.createdat
+                 news.user?.userid = Int(newsDb.user?.userid ?? 0)
+                 news.user?.profilepicture = newsDb.user?.profilepicture
+                 news.user?.data = newsDb.user?.profileImage
                  
+                 for media in newsDb.multimedias ?? []{
+                     print("Media")
+                     
+                     print(media)
+                     
+//                     var multimedia: MultiMedia = MultiMedia()
+//                     multimedia.id = media.id
+//
+//
+//                     news.multiMedia?.append(contentsOf: <#T##Sequence#>)
+                 }
+                
                  
                  listItem.append(news)
                  

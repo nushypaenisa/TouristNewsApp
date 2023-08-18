@@ -92,11 +92,11 @@ class NewsFeedsViewController: UIViewController, UITableViewDelegate, UITableVie
         
         view.addSubview(tableView)
         
-        tableView.separatorStyle = .none
+        //tableView.separatorStyle = .none
         
         tableView.frame = view.bounds
         
-        tableView.rowHeight = 200
+        tableView.rowHeight = 250
         
         tableView.delegate = self
         
@@ -104,7 +104,15 @@ class NewsFeedsViewController: UIViewController, UITableViewDelegate, UITableVie
         
         tableView.register(NewsCell.self, forCellReuseIdentifier: Cells.newsCellName)
     }
-  
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+//        let rowNumber : Int = indexPath.row
+//        
+////         let vc = ViewTouristViewController()
+////         vc.tourist = touristList[rowNumber]
+////         self.navigationController?.pushViewController(vc, animated:true)
+//        
+//    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if newsFeedList.count == 0 {
@@ -123,7 +131,7 @@ class NewsFeedsViewController: UIViewController, UITableViewDelegate, UITableVie
 
         let newsFeed = newsFeedList[indexPath.row]
 
-        cell.titleLabel.text = newsFeed.description
+        cell.titleLabel.text = newsFeed.title ?? "\(newsFeed.user?.name ?? "") Travels"
         cell.locationLabel.text = newsFeed.location
         cell.userNameLabel.text = newsFeed.user?.name ?? "Name"
         cell.createdAt.text = newsFeed.createdat
@@ -147,43 +155,65 @@ class NewsFeedsViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
         
-        
-        for multimedia in newsFeed.multiMedia ?? [] {
-            
-            let img = UIImageView()
-            img.contentMode = .scaleAspectFill // without this your image will shrink and looks ugly
-            img.translatesAutoresizingMaskIntoConstraints = false
-            img.layer.cornerRadius = 5
-            img.backgroundColor = UIColor(white: 0, alpha: 0.1)
-            img.clipsToBounds = true
-            img.widthAnchor.constraint(equalToConstant: 50).isActive = true
-            img.heightAnchor.constraint(equalToConstant:50).isActive = true
-           // img.topAnchor.constraint(equalTo:self.view.bottomAnchor).isActive = true
-            //img.leadingAnchor.constraint(equalTo:cell.containerImageView.leadingAnchor).isActive = true
-            //img.topAnchor.constraint(equalTo:self.view.bottomAnchor).isActive = true
-            
-        
-            if !isConnected{
+//            if !isConnected{
+//
+//                let image = UIImage(data: multimedia.data ?? Data())
+//                img.image = image
+//                cell.containerImageView.addSubview(img)
+//
+//            }else{
+        if !(newsFeed.multiMedia?.count == 0) {
                 
-                let image = UIImage(data: multimedia.data ?? Data())
-                img.image = image
-                cell.containerImageView.addSubview(img)
-                
-            }else{
-            
-            ImageDownloader.downloadImage( multimedia.url ?? "http://restapi.adequateshop.com/Media//Images/userimageicon.png") {
-            image, urlString, binaryString in
-               if let imageObject = image {
-                  // performing UI operation on main thread
-                  DispatchQueue.main.async {
-                      img.image = imageObject
-                      cell.containerImageView.addSubview(img)
-                  }
-               }
+            ImageDownloader.downloadImage( newsFeed.multiMedia?[0].url ?? "https://picsum.photos/300") {
+                image, urlString, binaryString in
+                   if let imageObject = image {
+                      // performing UI operation on main thread
+                      DispatchQueue.main.async {
+                         // img.image = imageObject
+                          cell.locationImage.image = imageObject //.addSubview(img)
+                      }
+                   }
+                }
             }
-            }
-            
-        }
+
+           // }
+        
+//        for multimedia in newsFeed.multiMedia ?? [] {
+//
+//            let img = UIImageView()
+//            img.contentMode = .scaleAspectFill // without this your image will shrink and looks ugly
+//            img.translatesAutoresizingMaskIntoConstraints = false
+//            img.layer.cornerRadius = 5
+//            img.backgroundColor = UIColor(white: 0, alpha: 0.1)
+//            img.clipsToBounds = true
+//            img.widthAnchor.constraint(equalToConstant: 50).isActive = true
+//            img.heightAnchor.constraint(equalToConstant:50).isActive = true
+//           // img.topAnchor.constraint(equalTo:self.view.bottomAnchor).isActive = true
+//            //img.leadingAnchor.constraint(equalTo:cell.containerImageView.leadingAnchor).isActive = true
+//            //img.topAnchor.constraint(equalTo:self.view.bottomAnchor).isActive = true
+//
+//
+//            if !isConnected{
+//
+//                let image = UIImage(data: multimedia.data ?? Data())
+//                img.image = image
+//                cell.containerImageView.addSubview(img)
+//
+//            }else{
+//
+//            ImageDownloader.downloadImage( multimedia.url ?? "http://restapi.adequateshop.com/Media//Images/userimageicon.png") {
+//            image, urlString, binaryString in
+//               if let imageObject = image {
+//                  // performing UI operation on main thread
+//                  DispatchQueue.main.async {
+//                      img.image = imageObject
+//                      cell.containerImageView.addSubview(img)
+//                  }
+//               }
+//            }
+//            }
+//
+//        }
 
         return cell
 

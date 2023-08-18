@@ -122,6 +122,7 @@ struct TouristViewModel {
                 tourist.touristEmail = touristDb.touristEmail
                 tourist.touristLocation = touristDb.touristLocation
                 tourist.createdat = touristDb.createdat
+                tourist.data = touristDb.profilePic
                 
                 
                 listItem.append(tourist)
