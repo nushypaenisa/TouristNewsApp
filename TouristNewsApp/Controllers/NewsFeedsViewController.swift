@@ -96,7 +96,7 @@ class NewsFeedsViewController: UIViewController, UITableViewDelegate, UITableVie
         
         tableView.frame = view.bounds
         
-        tableView.rowHeight = 250
+        tableView.rowHeight = 220
         
         tableView.delegate = self
         

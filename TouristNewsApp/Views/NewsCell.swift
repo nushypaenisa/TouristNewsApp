@@ -110,7 +110,7 @@ class NewsCell: UITableViewCell {
         self.contentView.addSubview(locationImage)
         self.contentView.addSubview(userImageView)
         self.contentView.addSubview(userNameLabel)
-        //self.contentView.addSubview(createdAt)
+        self.contentView.addSubview(createdAt)
 
        
         //addSubview(createdAt)
@@ -130,6 +130,7 @@ class NewsCell: UITableViewCell {
         
         locationLabel.topAnchor.constraint(equalTo:self.titleLabel.bottomAnchor).isActive = true
         locationLabel.leadingAnchor.constraint(equalTo:self.leadingAnchor, constant: 10).isActive = true
+        locationLabel.heightAnchor.constraint(equalToConstant:30).isActive = true
         
        
         
@@ -140,12 +141,12 @@ class NewsCell: UITableViewCell {
         userImageView.topAnchor.constraint(equalTo:self.locationLabel.bottomAnchor).isActive = true
         
         
-        userNameLabel.centerYAnchor.constraint(equalTo:self.contentView.centerYAnchor).isActive = true
+        //userNameLabel.centerYAnchor.constraint(equalTo:self.contentView.centerYAnchor).isActive = true
         userNameLabel.leadingAnchor.constraint(equalTo:self.userImageView.trailingAnchor, constant:10).isActive = true
         userNameLabel.trailingAnchor.constraint(equalTo:self.contentView.trailingAnchor, constant:-10).isActive = true
         //userNameLabel.heightAnchor.constraint(equalToConstant:80).isActive = true
-        userNameLabel.topAnchor.constraint(equalTo:self.locationLabel.bottomAnchor, constant: 5).isActive = true
-        
+        userNameLabel.topAnchor.constraint(equalTo:self.locationLabel.bottomAnchor).isActive = true
+        userNameLabel.heightAnchor.constraint(equalToConstant:30).isActive = true
 //
 //        userNameLabel.topAnchor.constraint(equalTo:self.locationLabel.bottomAnchor, constant: 5).isActive = true
 //        userNameLabel.leadingAnchor.constraint(equalTo:self.leadingAnchor, constant: 10).isActive = true
@@ -170,9 +171,9 @@ class NewsCell: UITableViewCell {
 
        
         
-//        createdAt.topAnchor.constraint(equalTo:self.locationImage.bottomAnchor).isActive = true
-//        createdAt.leadingAnchor.constraint(equalTo:self.leadingAnchor, constant: 10).isActive = true
-//        createdAt.trailingAnchor.constraint(equalTo:self.trailingAnchor).isActive = true
+        createdAt.topAnchor.constraint(equalTo:self.locationImage.bottomAnchor).isActive = true
+        createdAt.leadingAnchor.constraint(equalTo:self.leadingAnchor, constant: 10).isActive = true
+        createdAt.trailingAnchor.constraint(equalTo:self.trailingAnchor).isActive = true
         
 //        commentLabel.topAnchor.constraint(equalTo:self.createdAt.bottomAnchor).isActive = true
 //        commentLabel.leadingAnchor.constraint(equalTo:self.leadingAnchor, constant:10).isActive = true
