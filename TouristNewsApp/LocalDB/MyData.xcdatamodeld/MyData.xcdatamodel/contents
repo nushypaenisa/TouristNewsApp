@@ -1,4 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21G72" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+    <entity name="MultiMediaDB" representedClassName="MultiMediaDB" syncable="YES" codeGenerationType="class">
+        <attribute name="createat" optional="YES" attributeType="String"/>
+        <attribute name="descriptions" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
+        <relationship name="newsFeed" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="NewsFeedsDB" inverseName="multimedias" inverseEntity="NewsFeedsDB"/>
+    </entity>
+    <entity name="NewsFeedsDB" representedClassName="NewsFeedsDB" syncable="YES" codeGenerationType="class">
+        <attribute name="commentCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="createdat" optional="YES" attributeType="String"/>
+        <attribute name="descriptions" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="location" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="multimedias" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MultiMediaDB" inverseName="newsFeed" inverseEntity="MultiMediaDB"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="UserDB" inverseName="newsFeeds" inverseEntity="UserDB"/>
+    </entity>
+    <entity name="TouristDB" representedClassName="TouristDB" syncable="YES" codeGenerationType="class">
+        <attribute name="createdat" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="profilePic" optional="YES" attributeType="Binary"/>
+        <attribute name="touristEmail" optional="YES" attributeType="String"/>
+        <attribute name="touristLocation" optional="YES" attributeType="String"/>
+        <attribute name="touristName" optional="YES" attributeType="String"/>
+        <attribute name="touristProfilepicture" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="UserDB" representedClassName="UserDB" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="profileImage" optional="YES" attributeType="Binary"/>
+        <attribute name="profilepicture" optional="YES" attributeType="String"/>
+        <attribute name="userid" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="newsFeeds" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="NewsFeedsDB" inverseName="user" inverseEntity="NewsFeedsDB"/>
+    </entity>
+    <elements>
+        <element name="MultiMediaDB" positionX="-27" positionY="18" width="128" height="149"/>
+        <element name="NewsFeedsDB" positionX="54" positionY="99" width="128" height="149"/>
+        <element name="TouristDB" positionX="18" positionY="63" width="128" height="134"/>
+        <element name="UserDB" positionX="18" positionY="63" width="128" height="104"/>
+    </elements>
 </model>

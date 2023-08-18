@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EmptyTableView: UITableView {
+//class EmptyTableView: UITableView {
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -17,4 +17,5 @@ class EmptyTableView: UITableView {
     }
     */
 
-}
+//}
+

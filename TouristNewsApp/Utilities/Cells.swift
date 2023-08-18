@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct Cells{
+    
+    static let newsCellName: String = "NewsCell"
+    static let touristCellName: String = "TouristCell"
+    static let loadingCellName: String = "LoadingCell"
+}
